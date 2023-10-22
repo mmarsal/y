@@ -1,0 +1,8 @@
+{
+  "name": "y",
+  "version": "1.0.0",
+  "dependencies": {
+    "redis": "^4.6.10",
+    "redis-server": "^1.2.2"
+  }
+}
