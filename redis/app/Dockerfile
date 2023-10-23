@@ -13,8 +13,5 @@ RUN npm install
 # Copy the rest of your Node.js application code to the container
 COPY . .
 
-# Expose a port if your Node.js application listens on a specific port
-EXPOSE 6379
-
 # Define the command to start your Node.js application
 CMD node program.js
