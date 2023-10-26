@@ -69,7 +69,20 @@ const postTweet = async () => {
 };
 
 const postReply = async () => {
+    console.log("2. access pattern: Post reply.");
+    // Create reply
+    const value = JSON.stringify({
+        id: 1,
+        text: "Hallo zurück.",
+        likes: 0,
+    });
+    await client.set("reply:1", value);
 
+    // Add reply id to tweet
+    await client.sadd("tweet:1:replies", 1);
+
+    // Add reply id to user
+    await client.sadd("user:2:replies", 1);
 };
 
 const editTweet = async () => {
