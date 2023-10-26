@@ -99,7 +99,19 @@ const editTweet = async () => {
 };
 
 const readTimeline = async () => {
-
+    // TODO
+    // console.log("4. access pattern: read Timeline tweet.")
+    // // get Timeline
+    // const tweets = await client.smembers("timeline:2");
+    // console.log("tweets", tweets)
+    // let timeline = [];
+    // //Get tweet from the timeline
+    // await tweets.map(async (tweet) => {
+    //     const pulledTweet = await client.get("tweet:" + tweet);
+    //     console.log("pd", pulledTweet)
+    //     timeline.push(pulledTweet);
+    // })
+    // console.log("tl", timeline)
 };
 
 const deleteTweet = async () => {
