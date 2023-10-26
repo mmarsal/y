@@ -86,7 +86,15 @@ const postReply = async () => {
 };
 
 const editTweet = async () => {
+    console.log("3. access pattern: Edit tweet.");
+    // Get tweet
+    const tweetToEdit = client.get("tweet:1");
 
+    // Edit tweet
+    tweetToEdit.text = "Moin, moin. Wie geht es euch?";
+
+    // Save edited tweet on same key
+    client.set("tweet:1", JSON.stringify(tweetToEdit));
 };
 
 const readTimeline = async () => {
