@@ -34,6 +34,7 @@ const initializeTestData = async () => {
         });
         await client.set(key, value);
     }
+
     // Followers
     for (let i = 1; i < 4; i++) {
         const key = "user:" + i + ":followers";
@@ -42,6 +43,18 @@ const initializeTestData = async () => {
         await client.sadd(key, value);
         // const test = await client.smembers(key);
         // console.log(test)
+    }
+
+    // Tweets
+    for (let i = 1; i < 4; i++) {
+        let random = Math.floor(Math.random() * 50);
+        const key = "tweet:" + i;
+        const value = JSON.stringify({
+            tweetId: i,
+            text: "Tweet" + i + " Text",
+            likes: random,
+        });
+        await client.set(key, value);
     }
 };
 
@@ -52,7 +65,17 @@ const postTweet = async () => {
 };
 
 const deleteTweet = async () => {
+    await client.del('key', function (err, response) {
+        
+    });
+    const value = await client.get('key');
+    if (value == null)
+    {
+        console.log('Deleted successfully')
+    }
 
+    // TODO: delete tweet on all timelines
+    
 };
 
 const postReply = async () => {
