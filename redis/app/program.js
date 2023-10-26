@@ -14,10 +14,10 @@ const createAndRunClient = async () => {
 
         console.log("Running access patterns.");
         await postTweet();
-        await deleteTweet();
         await postReply();
-        await readTimeline();
         await editTweet();
+        await readTimeline();
+        await deleteTweet();
         await deleteUser();
     } catch (error) {
         console.error('An error occurred:', error);
