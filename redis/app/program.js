@@ -51,11 +51,11 @@ const postTweet = async () => {
     console.log("value", value)
 };
 
-const deleteTweet = async () => {
+const postReply = async () => {
 
 };
 
-const postReply = async () => {
+const editTweet = async () => {
 
 };
 
@@ -63,7 +63,7 @@ const readTimeline = async () => {
 
 };
 
-const editTweet = async () => {
+const deleteTweet = async () => {
 
 };
 
