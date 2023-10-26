@@ -46,9 +46,26 @@ const initializeTestData = async () => {
 };
 
 const postTweet = async () => {
-    await client.set('key', 'value');
-    const value = await client.get('key');
-    console.log("value", value)
+    console.log("1. access pattern: Post tweet.")
+    // Save tweet
+    const tweetKey = "tweet:10";
+    const tweetValue = JSON.stringify({
+        id: 10,
+        text: "Moin, moin.",
+        likes: 0,
+    });
+    await client.set(tweetKey, tweetValue);
+
+    // Save tweet in the user
+    await client.sadd("user:1:tweets", 10);
+
+    // Get followers
+    const followers = await client.smembers("user:1:followers");
+
+    // Add tweet to their timeline
+    followers.map(async (follower) => {
+        await client.sadd("timeline:" + follower, 10);
+    })
 };
 
 const postReply = async () => {
