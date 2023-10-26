@@ -44,38 +44,29 @@ const initializeTestData = async () => {
         // const test = await client.smembers(key);
         // console.log(test)
     }
-
-    // Tweets
-    for (let i = 1; i < 4; i++) {
-        let random = Math.floor(Math.random() * 50);
-        const key = "tweet:" + i;
-        const value = JSON.stringify({
-            tweetId: i,
-            text: "Tweet" + i + " Text",
-            likes: random,
-        });
-        await client.set(key, value);
-    }
 };
 
 const postTweet = async () => {
-    await client.set('key', 'value');
-    const value = await client.get('key');
-    console.log("value", value)
-};
-
-const deleteTweet = async () => {
-    await client.del('key', function (err, response) {
-        
+    console.log("1. access pattern: Post tweet.")
+    // Save tweet
+    const tweetKey = "tweet:10";
+    const tweetValue = JSON.stringify({
+        id: 10,
+        text: "Moin, moin.",
+        likes: 0,
     });
-    const value = await client.get('key');
-    if (value == null)
-    {
-        console.log('Deleted successfully')
-    }
+    await client.set(tweetKey, tweetValue);
 
-    // TODO: delete tweet on all timelines
-    
+    // Save tweet in the user
+    await client.sadd("user:1:tweets", 10);
+
+    // Get followers
+    const followers = await client.smembers("user:1:followers");
+
+    // Add tweet to their timeline
+    followers.map(async (follower) => {
+        await client.sadd("timeline:" + follower, 10);
+    })
 };
 
 const postReply = async () => {
@@ -88,6 +79,30 @@ const readTimeline = async () => {
 
 const editTweet = async () => {
 
+};
+
+const deleteTweet = async () => {
+
+    console.log("5. access pattern: Delete tweet.")
+    await client.del('tweet:10', function (err, response)
+    {
+        console.log(response);
+    });
+
+    // check if tweet 10 deleted successfully (value = null)
+    const value = await client.get('tweet:10');
+    if (value == null)
+    {
+        console.log('Tweet 10 deleted successfully')
+    }
+
+    // get followers of user1
+    const followers = await client.smembers("user:1:followers");
+
+    // delete tweet 10 on every follower timeline
+    followers.map(async (follower) => {
+        await client.srem("timeline:" + follower, 10);
+    })
 };
 
 const deleteUser = async () => {
