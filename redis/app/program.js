@@ -34,6 +34,7 @@ const initializeTestData = async () => {
         });
         await client.set(key, value);
     }
+
     // Followers
     for (let i = 1; i < 4; i++) {
         const key = "user:" + i + ":followers";
@@ -103,6 +104,26 @@ const readTimeline = async () => {
 
 const deleteTweet = async () => {
 
+    console.log("5. access pattern: Delete tweet.")
+    await client.del('tweet:10', function (err, response)
+    {
+        console.log(response);
+    });
+
+    // check if tweet 10 deleted successfully (value = null)
+    const value = await client.get('tweet:10');
+    if (value == null)
+    {
+        console.log('Tweet 10 deleted successfully')
+    }
+
+    // get followers of user1
+    const followers = await client.smembers("user:1:followers");
+
+    // delete tweet 10 on every follower timeline
+    followers.map(async (follower) => {
+        await client.srem("timeline:" + follower, 10);
+    })
 };
 
 const deleteUser = async () => {
