@@ -1,18 +1,15 @@
 console.log("Running script.");
 
+const { Redis } = require('ioredis');
 let client = null;
 
 const createAndRunClient = async () => {
     try {
         console.log("Creating client.");
-        const redis = require('redis');
-        client = redis.createClient({
-            url: 'redis://redis:6379',
-        });
+        client = new Redis('redis://redis:6379');
         client.on('error', err => console.log('Redis Client Error', err));
-        await client.connect();
 
-        console.log("Initializing test data.")
+        console.log("Initializing test data.");
         await initializeTestData();
 
         console.log("Running access patterns.");
@@ -37,13 +34,15 @@ const initializeTestData = async () => {
         });
         await client.set(key, value);
     }
-    // TODO: Followers
-    /*for (let i = 1; i < 4; i++) {
+    // Followers
+    for (let i = 1; i < 4; i++) {
         const key = "user:" + i + ":followers";
         let value = [1, 2, 3];
-        value = value.filter((number) => number !== i);
+        value = value.filter((val) => val !== i);
         await client.sadd(key, value);
-    }*/
+        // const test = await client.smembers(key);
+        // console.log(test)
+    }
 };
 
 const postTweet = async () => {
