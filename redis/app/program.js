@@ -4,7 +4,8 @@ const { Redis } = require('ioredis');
 let client = null;
 
 const createAndRunClient = async () => {
-    try {
+    try
+    {
         console.log("Creating client.");
         client = new Redis('redis://redis:6379');
         client.on('error', err => console.log('Redis Client Error', err));
@@ -13,12 +14,22 @@ const createAndRunClient = async () => {
         await initializeTestData();
 
         console.log("Running access patterns.");
+
+        console.log("1. access pattern: Post tweet.")
         await postTweet();
+
+        console.log("2. access pattern: Post reply.");
         await postReply();
+
         await editTweet();
         await readTimeline();
-        await deleteTweet();
+
+        console.log("5. access pattern: Delete tweet.")
+        await deleteTweet("tweet:10", "user:1");
+
+        console.log("6. access pattern: delete User.");
         await deleteUser();
+
     } catch (error) {
         console.error('An error occurred:', error);
     }
@@ -46,8 +57,8 @@ const initializeTestData = async () => {
     }
 };
 
-const postTweet = async () => {
-    console.log("1. access pattern: Post tweet.")
+const postTweet = async () =>
+{
     // Save tweet
     const tweetKey = "tweet:10";
     const tweetValue = JSON.stringify({
@@ -69,8 +80,8 @@ const postTweet = async () => {
     })
 };
 
-const postReply = async () => {
-    console.log("2. access pattern: Post reply.");
+const postReply = async () =>
+{
     // Create reply
     const value = JSON.stringify({
         id: 1,
@@ -80,46 +91,66 @@ const postReply = async () => {
     await client.set("reply:1", value);
 
     // Add reply id to tweet
-    await client.sadd("tweet:1:replies", 1);
+    await client.sadd("tweet:10:replies", 1);
 
     // Add reply id to user
     await client.sadd("user:2:replies", 1);
 };
 
-const readTimeline = async () => {
+const readTimeline = async () =>
+{
 
 };
 
-const editTweet = async () => {
+const editTweet = async () =>
+{
 
 };
 
-const deleteTweet = async () => {
-
-    console.log("5. access pattern: Delete tweet.")
-    await client.del('tweet:10', function (err, response)
-    {
-        console.log(response);
-    });
-
-    // check if tweet 10 deleted successfully (value = null)
-    const value = await client.get('tweet:10');
-    if (value == null)
-    {
-        console.log('Tweet 10 deleted successfully')
-    }
+const deleteTweet = async (tweetId, userId) =>
+{
+    // delete tweet
+    await client.del(tweetId);
 
     // get followers of user1
-    const followers = await client.smembers("user:1:followers");
+    const followers = await client.smembers(userId + ":followers");
 
     // delete tweet 10 on every follower timeline
     followers.map(async (follower) => {
-        await client.srem("timeline:" + follower, 10);
+        await client.srem("timeline:" + follower, tweetId);
     })
 };
 
-const deleteUser = async () => {
+const deleteUser = async () =>
+{
+    // Add new tweet
+    const tweetKey = "tweet:20";
+    const tweetValue = JSON.stringify({
+        id: 20,
+        text: "Eigener Tweet",
+        likes: 0,
+    });
+    await client.set(tweetKey, tweetValue);
 
+    // Save tweet for user
+    await client.sadd("user:1:tweets", 20);
+
+    // Get followers
+    const followers = await client.smembers("user:1:followers");
+
+    // Add tweet to their timeline
+    followers.map(async (follower) => {
+        await client.sadd("timeline:" + follower, 20);
+    })
+
+    // remove all written tweets from user:1
+    const tweets = await client.smembers("user:1:tweets");
+    tweets.map(async (tweet) => {
+        await deleteTweet("tweet:" + tweet, "user:1");
+    })
+
+    // delete user
+    await client.del("user:1");
 };
 
 createAndRunClient();
