@@ -54,3 +54,9 @@ Ioredis mit set, get, sadd, smembers
 
 Umgang mit Redis und key value Datenbanken und Docker
 Einfach war der Zugriff und das Anlegen neuer Datensätze durch get und set. Kompliziert war es sich sinnvolle Relationen zwischen den Entitäten auszudenken, insbesondere wie diese aufeinander zugreifen.
+
+## Video
+
+![Video](media/Redis.mp4)
+
+
