@@ -3,10 +3,8 @@ console.log("Running script.");
 const { Redis } = require('ioredis');
 let client = null;
 
-const createAndRunClient = async () =>
-{
-    try
-    {
+const createAndRunClient = async () => {
+    try {
         console.log("Creating client.");
         client = new Redis('redis://redis:6379');
         client.on('error', err => console.log('Redis Client Error', err));
@@ -16,22 +14,22 @@ const createAndRunClient = async () =>
 
         console.log("Running access patterns.");
 
-        console.log("1. access pattern: Post tweet.")
+        console.log("1st access pattern: Post tweet.")
         await postTweet();
 
-        console.log("2. access pattern: Post reply.");
+        console.log("2nd access pattern: Post reply.");
         await postReply();
 
-        console.log("3. access pattern: Edit tweet.");
+        console.log("3rd access pattern: Edit tweet.");
         await editTweet();
 
-        // console.log("4. access pattern: read Timeline tweet.")
+        console.log("4th access pattern: Read timeline.")
         await readTimeline();
 
-        console.log("5. access pattern: Delete tweet.")
+        console.log("5th access pattern: Delete tweet.")
         await deleteTweet("tweet:10", "user:1");
 
-        console.log("6. access pattern: delete User.");
+        console.log("6th access pattern: Delete user.");
         await deleteUser();
 
     } catch (error) {
@@ -39,8 +37,7 @@ const createAndRunClient = async () =>
     }
 };
 
-const initializeTestData = async () =>
-{
+const initializeTestData = async () => {
     // Three users
     for (let i = 1; i < 4; i++) {
         const key = "user:" + i;
@@ -62,8 +59,7 @@ const initializeTestData = async () =>
     }
 };
 
-const postTweet = async () =>
-{
+const postTweet = async () => {
     // Save tweet
     const tweetKey = "tweet:10";
     const tweetValue = JSON.stringify({
@@ -85,8 +81,7 @@ const postTweet = async () =>
     })
 };
 
-const postReply = async () =>
-{
+const postReply = async () => {
     // Create reply
     const value = JSON.stringify({
         id: 1,
@@ -102,8 +97,7 @@ const postReply = async () =>
     await client.sadd("user:2:replies", 1);
 };
 
-const editTweet = async () =>
-{
+const editTweet = async () => {
     // Get tweet
     const tweetToEdit = client.get("tweet:1");
 
@@ -114,24 +108,19 @@ const editTweet = async () =>
     client.set("tweet:1", JSON.stringify(tweetToEdit));
 };
 
-const readTimeline = async () =>
-{
-    // TODO
-    // // get Timeline
-    // const tweets = await client.smembers("timeline:2");
-    // console.log("tweets", tweets)
-    // let timeline = [];
-    // //Get tweet from the timeline
-    // await tweets.map(async (tweet) => {
-    //     const pulledTweet = await client.get("tweet:" + tweet);
-    //     console.log("pd", pulledTweet)
-    //     timeline.push(pulledTweet);
-    // })
-    // console.log("tl", timeline)
+const readTimeline = async () => {
+    // Get timeline
+    const tweets = await client.smembers("timeline:2");
+    let timeline= [];
+
+    // Get tweets from timeline
+    await tweets.map(async (tweet) => {
+        const pulledTweet = await client.get("tweet:" + tweet);
+        timeline.push(pulledTweet);
+    })
 };
 
-const deleteTweet = async (tweetId, userId) =>
-{
+const deleteTweet = async (tweetId, userId) => {
     // delete tweet
     await client.del(tweetId);
 
@@ -144,8 +133,7 @@ const deleteTweet = async (tweetId, userId) =>
     })
 };
 
-const deleteUser = async () =>
-{
+const deleteUser = async () => {
     // Add new tweet
     const tweetKey = "tweet:20";
     const tweetValue = JSON.stringify({
