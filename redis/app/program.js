@@ -3,7 +3,8 @@ console.log("Running script.");
 const { Redis } = require('ioredis');
 let client = null;
 
-const createAndRunClient = async () => {
+const createAndRunClient = async () =>
+{
     try
     {
         console.log("Creating client.");
@@ -21,7 +22,10 @@ const createAndRunClient = async () => {
         console.log("2. access pattern: Post reply.");
         await postReply();
 
+        console.log("3. access pattern: Edit tweet.");
         await editTweet();
+
+        // console.log("4. access pattern: read Timeline tweet.")
         await readTimeline();
 
         console.log("5. access pattern: Delete tweet.")
@@ -35,7 +39,8 @@ const createAndRunClient = async () => {
     }
 };
 
-const initializeTestData = async () => {
+const initializeTestData = async () =>
+{
     // Three users
     for (let i = 1; i < 4; i++) {
         const key = "user:" + i;
@@ -97,14 +102,32 @@ const postReply = async () =>
     await client.sadd("user:2:replies", 1);
 };
 
-const readTimeline = async () =>
-{
-
-};
-
 const editTweet = async () =>
 {
+    // Get tweet
+    const tweetToEdit = client.get("tweet:1");
 
+    // Edit tweet
+    tweetToEdit.text = "Moin, moin. Wie geht es euch?";
+
+    // Save edited tweet on same key
+    client.set("tweet:1", JSON.stringify(tweetToEdit));
+};
+
+const readTimeline = async () =>
+{
+    // TODO
+    // // get Timeline
+    // const tweets = await client.smembers("timeline:2");
+    // console.log("tweets", tweets)
+    // let timeline = [];
+    // //Get tweet from the timeline
+    // await tweets.map(async (tweet) => {
+    //     const pulledTweet = await client.get("tweet:" + tweet);
+    //     console.log("pd", pulledTweet)
+    //     timeline.push(pulledTweet);
+    // })
+    // console.log("tl", timeline)
 };
 
 const deleteTweet = async (tweetId, userId) =>
