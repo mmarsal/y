@@ -15,7 +15,7 @@ Repository: https://git.it.hs-heilbronn.de/it/courses/seb/db2/ws23/y
 # Einführung
 
 ## Why Y?
-Y ist eine Social-Media-Plattform ähnlich zu Twitter, die es Nutzern ermöglicht, kurze Textnachrichten, sogenannte "Tweets," zu verfassen und zu veröffentlichen. 
+Y ist eine Social-Media-Plattform ähnlich zu Twitter, die es Nutzern ermöglicht, kurze Textnachrichten, sogenannte "Tweets", zu verfassen und zu veröffentlichen. 
 Y dient dazu, Gedanken, Informationen und Meinungen mit einem breiten Publikum zu teilen und kann von Menschen, Organisationen und Prominenten genutzt werden, 
 um sich mit anderen auszutauschen, Nachrichten zu verbreiten und Trends zu verfolgen. 
 Nutzer können Tweets verfassen und anderen Nutzern folgen, um deren Tweets in ihrem eigenen Feed zu sehen. 
@@ -35,18 +35,20 @@ Durch letzteres ist es ihnen ebenfalls möglich die Tweets anderer zu liken und 
 # Datenmodell
 
 Unser Datenmodell besteht aus 4 Entitäten: User, Tweet, Reply und Timeline. Dabei wird jeweils jeder Eintrag mit einer ID versehen. 
-Jeder User besitzt eine eigene Timeline in der er Tweets von Personen angezeigt bekommt, denen er folgt. Jeder User kann Tweets verfassen, die dann wiederum in der Timeline seiner Follower angezeigt werden. 
-Der Tweet wird dabei dem User zugeordnet von dem er erfasst wurde, um sicherstellen zu können, dass seine Follower diesen Tweet auch angezeigt bekommen. 
+Jeder User besitzt eine eigene Timeline, in der er Tweets von Personen angezeigt bekommt, denen er folgt. Jeder User kann Tweets verfassen, die dann wiederum in der Timeline seiner Follower angezeigt werden. 
+Der Tweet wird dabei dem User zugeordnet, von dem er erfasst wurde, um sicherstellen zu können, dass seine Follower diesen Tweet auch angezeigt bekommen. 
 Unter jedem Tweet können zusätzlich Replies erstellt werden, die diesem Tweet zugeordnet werden.
 Beispielsweise gibt es den User mit der ID „user:1“.
+Der Einfachheit halber haben der User und seine Timeline beide die gleiche ID.
 
 Wenn dieser nun einen Tweet veröffentlicht (tweet:1), wird in der Datenbank eine Relation von diesem User zu seinem Tweet angelegt (key: user:1:tweets, value: 1 (die ID des angelegten Tweets)). 
-Genauso verhält sich das für jeden Followern von diesem User, die diesen Tweet in ihre Timeline geschrieben bekommen. 
+Genauso verhält sich das für jeden Follower von diesem User, die diesen Tweet in ihre Timeline geschrieben bekommen. 
 Hierfür wird mit smembers abgefragt, welche Follower user:1 besitzt und anschließend wird der Tweet bei jedem Follower in die Timeline eingetragen. 
-Follower z.B. user:2 (key: timeline:user:2, value: 1).Mit den Replies verhält sich das ähnlich zu den Tweets. Replies werden dem Tweet zugeordnet, unter dem sie verfasst wurden und dem User, der sie geschrieben hat.
+Follower z.B. user:2 (key: timeline:user:2, value: 1). Mit den Replies verhält sich das ähnlich zu den Tweets. Replies werden dem Tweet zugeordnet, unter dem sie verfasst wurden und dem User, der sie geschrieben hat.
 
 Die Attribute der Entitäten werden als JSON beim Erstellen des pairs dem value zugeordnet. Dies ist bei jedem Attribut der Fall außer bei den Followern eines Users, diese haben wir
-nämlich als eigenen Key (user:id:followers) in einem Set abgespeichert.
+nämlich als eigenen Key (user:id:followers) in einem Set abgespeichert, und bei der Timeline-ID, da diese nicht direkt als JSON gespeichert, sondern im Keynamen "timeline:id" enthalten
+ist.
 
 # Tooling
 
