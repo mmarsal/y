@@ -76,6 +76,8 @@ mussten. Ansonsten gab es mehrmals in unserer Kommunikation die Verwechselung zw
 einigen mussten. Wir sind noch nicht völlig dahintergestiegen, wie man eine Dockerumgebung am effizientesten zum Entwickeln benutzen kann und hoffen, uns dieses Wissen noch in den nächsten beiden
 Projekten aneignen zu können.
 
+Überraschend fanden wir, was man doch so alles mit einer simplen key-value-Datenbank erreichen kann.
+
 ## Video
 
 ![Video](media/Redis.mp4)

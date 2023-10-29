@@ -54,8 +54,6 @@ const initializeTestData = async () => {
         let value = [1, 2, 3];
         value = value.filter((val) => val !== i);
         await client.sadd(key, value);
-        // const test = await client.smembers(key);
-        // console.log(test)
     }
 };
 
