@@ -56,6 +56,13 @@ Die Datenbank haben wir mithilfe einer Dockerumgebung aufgesetzt. Die docker-com
 offizielle Image dafür benutzt. Im Node-Container wird mithilfe von npm die ioredis-library, mit welcher wir dann später weiterführende Commands wie sadd und smembers benutzen konnten,
 installiert.
 
+![Konsolenausgabe 1](media/console1.PNG)
+
+![Konsolenausgabe 2](media/console2.PNG)
+
+Im ersten Screenshot werden im Nodejs-Container die Logs aus dem Skript ausgegeben. Im zweiten Screenshot wird über redis-cli monitor die Logs der Datenbank angezeigt, um dann
+festzustellen, ob die Tests erfolgreich waren.
+
 # Lessons Learned
 
 Wir hatten persönlich noch keine Erfahrung mit Redis und Key Value Datenbanken, deshalb war es eine sehr bereichernde Erfahrung sich mal mit so einer beschäftigt zu haben. Auch sind
