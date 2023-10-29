@@ -56,6 +56,21 @@ Die Datenbank haben wir mithilfe einer Dockerumgebung aufgesetzt. Die docker-com
 offizielle Image dafür benutzt. Im Node-Container wird mithilfe von npm die ioredis-library, mit welcher wir dann später weiterführende Commands wie sadd und smembers benutzen konnten,
 installiert.
 
+
+Die Dockerumgebung kann folgendermaßen gestartet werden, falls Docker installiert ist:
+
+```
+cd redis
+docker compose up
+```
+
+Wenn man möchte, kann man in einer zweiten Konsole parallel noch auf die redis-cli zugreifen:
+
+```
+docker compose exec redis sh
+redis-cli monitor
+```
+
 ![Konsolenausgabe 1](media/console1.PNG)
 
 ![Konsolenausgabe 2](media/console2.PNG)
