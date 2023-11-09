@@ -1,3 +1,7 @@
 .idea
-redis/app/node_modules
 .vs
+.ipynb_checkpoints
+
+redis/app/node_modules
+
+mongodb/data

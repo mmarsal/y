@@ -1,0 +1,15 @@
+services:
+  mongo:
+    image: mongo:latest
+    volumes:
+      - ./data:/data/db
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: hhn
+
+  jupyter:
+    build: ./jupyter
+    ports:
+      - "127.0.0.1:8888:8888"
+    volumes:
+      - "./:/app"
