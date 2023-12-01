@@ -5,3 +5,5 @@
 redis/app/node_modules
 
 mongodb/data
+mongodb/.Trash-0
+mongodb/__pycache__
