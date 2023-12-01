@@ -60,7 +60,9 @@ cd mongodb
 docker compose up
 ```
 
-Innerhalb des JupyterLabs im Browser wird pymongo als Driver benutzt, sowie die
+Den Großteil der Implementierung haben wir in die my_functions.py-file
+ausgelagert, um dann vom Notebook aus darauf zuzugreifen.
+Innerhalb des JupyterLabs wird pymongo als Driver benutzt, sowie die
 Module bson und unittest.
 
 # Lessons Learned
