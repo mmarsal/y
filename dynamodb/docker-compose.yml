@@ -1,0 +1,13 @@
+services:
+  dynamo:
+    image: amazon/dynamodb-local:latest
+    command: -jar DynamoDBLocal.jar -dbPath /home/dynamodblocal/data
+    volumes:
+      - ./data:/home/dynamodblocal/data
+
+  jupyter:
+    build: ./jupyter
+    ports:
+      - "127.0.0.1:8888:8888"
+    volumes:
+      - "./:/app"
