@@ -1,9 +1,11 @@
 .idea
 .vs
 .ipynb_checkpoints
+__pycache__
 
 redis/app/node_modules
 
 mongodb/data
 mongodb/.Trash-0
-mongodb/__pycache__
+
+dynamodb/credentials.py
