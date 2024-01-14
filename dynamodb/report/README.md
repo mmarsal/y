@@ -93,3 +93,5 @@ da man diese extra als eigene Einträge abspeichern muss. Auch haben wir sehr la
 hin und her diskutiert, wie wir die Modellierung der Replies umzusetzen sollen.
 
 # Video
+
+![Video](media/DynamoDB.mp4)
