@@ -68,7 +68,9 @@ Jupyter-Container, um den programmatischen Zugriff darauf zu ermöglichen. Inner
 des Jupyter-Containers werden die in der requirements.txt vorgegebenen Tools
 installiert.
 
-Die Anwendung kann folgendermaßen gestartet werden:
+Bevor man die Anwendung starten kann, muss man in der my_functions.py-File in der
+Funktion set_db() seine AWS-Credentials hinzufügen. Danach kann man wie folgt
+fortfahren:
 
 ```
 cd dynamodb
