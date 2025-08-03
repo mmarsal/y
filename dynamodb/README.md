@@ -22,7 +22,7 @@ Nutzer können Tweets verfassen und anderen Nutzern folgen, um deren Tweets in i
 Durch letzteres ist es ihnen ebenfalls möglich die Tweets anderer zu liken und zu kommentieren.
 
 ## ER-Diagramm
-![ER-Diagramm](media/er-diagram.PNG)
+![ER-Diagramm](report/er-diagram.PNG)
 
 ## Access Patterns
 1.	As a user, I want to post tweets.
@@ -94,4 +94,4 @@ hin und her diskutiert, wie wir die Modellierung der Replies umzusetzen sollen.
 
 # Video
 
-![Video](media/DynamoDB.mp4)
+![Video](report/DynamoDB.mp4)

@@ -22,7 +22,7 @@ Nutzer können Tweets verfassen und anderen Nutzern folgen, um deren Tweets in i
 Durch letzteres ist es ihnen ebenfalls möglich die Tweets anderer zu liken und zu kommentieren. 
 
 ## ER-Diagramm
-![ER-Diagramm](media/er-diagram.jpg)
+![ER-Diagramm](report/er-diagram.jpg)
 
 ## Access Pattern
 1.	As a user, I want to post tweets.
@@ -71,9 +71,9 @@ docker compose exec redis sh
 redis-cli monitor
 ```
 
-![Konsolenausgabe 1](media/console1.PNG)
+![Konsolenausgabe 1](report/console1.PNG)
 
-![Konsolenausgabe 2](media/console2.PNG)
+![Konsolenausgabe 2](report/console2.PNG)
 
 Im ersten Screenshot werden im Nodejs-Container die Logs aus dem Skript ausgegeben. Im zweiten Screenshot wird über redis-cli monitor die Logs der Datenbank angezeigt, um dann
 festzustellen, ob die Tests erfolgreich waren.
@@ -95,4 +95,4 @@ Projekten aneignen zu können.
 
 ## Video
 
-![Video](media/Redis.mp4)
+![Video](report/Redis.mp4)

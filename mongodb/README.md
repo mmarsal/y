@@ -22,7 +22,7 @@ Nutzer können Tweets verfassen und anderen Nutzern folgen, um deren Tweets in i
 Durch letzteres ist es ihnen ebenfalls möglich die Tweets anderer zu liken und zu kommentieren. 
 
 ## ER-Diagramm
-![ER-Diagramm](media/er-diagram.PNG)
+![ER-Diagramm](report/er-diagram.PNG)
 
 ## Access Patterns
 1.	As a user, I want to post tweets.
@@ -83,4 +83,4 @@ zukünftigen Projekten verwenden, sofern es sich anbieten würde.
 
 ## Video
 
-![Video](media/Untitled video - Made with Clipchamp.mp4)
+![Video](report/Untitled video - Made with Clipchamp.mp4)
